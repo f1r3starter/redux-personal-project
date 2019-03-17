@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ui actions: emitError 1`] = `
+Object {
+  "error": true,
+  "meta": "123",
+  "payload": [Error: TEST_ERROR_MESSAGE.],
+  "type": "EMIT_ERROR",
+}
+`;
+
+exports[`ui actions: startSpinning 1`] = `
+Object {
+  "type": "START_SPINNING",
+}
+`;
+
+exports[`ui actions: stopSpinning 1`] = `
+Object {
+  "type": "STOP_SPINNING",
+}
+`;
