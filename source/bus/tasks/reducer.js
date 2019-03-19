@@ -6,55 +6,55 @@ import { types } from "./types";
 
 const initialState = List();
 
-export const todosReducer = (state = initialState, action) => {
+export const tasksReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.FILL_TODOS:
+        case types.FILL_TASKS:
             return fromJS(action.payload);
 
-        case types.CREATE_TODO:
+        case types.CREATE_TASK:
             return state.unshift(fromJS(action.payload));
 
-        case types.REMOVE_TODO:
+        case types.REMOVE_TASK:
             return state.filter((post) => post.get("id") !== action.payload);
 
-        case types.COMPLETE_TODO:
+        case types.COMPLETE_TASK:
             return state.setIn(
                 [
-                    state.findIndex((todo) => {
-                        return todo.get("id") === action.payload.todoId;
+                    state.findIndex((task) => {
+                        return task.get("id") === action.payload.taskId;
                     }),
                     "completed"
                 ],
                 true
             );
 
-        case types.UNCOMPLETE_TODO:
+        case types.UNCOMPLETE_TASK:
             return state.setIn(
                 [
-                    state.findIndex((todo) => {
-                        return todo.get("id") === action.payload.todoId;
+                    state.findIndex((task) => {
+                        return task.get("id") === action.payload.taskId;
                     }),
                     "completed"
                 ],
                 false
             );
 
-        case types.FAVOURITE_TODO:
+        case types.FAVORITE_TASK:
             return state.setIn(
                 [
-                    state.findIndex((todo) => {
-                        return todo.get("id") === action.payload.todoId;
+                    state.findIndex((task) => {
+                        return task.get("id") === action.payload.taskId;
                     }),
                     "favorite"
                 ],
                 true
             );
 
-        case types.UNFAVOURITE_TODO:
+        case types.UNFAVORITE_TASK:
             return state.setIn(
                 [
-                    state.findIndex((todo) => {
-                        return todo.get("id") === action.payload.todoId;
+                    state.findIndex((task) => {
+                        return task.get("id") === action.payload.taskId;
                     }),
                     "favorite"
                 ],

@@ -1,15 +1,15 @@
 // Core
-import React, { PureComponent } from 'react';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import cx from "classnames";
 
 // Instruments
-import Styles from './styles.m.css';
+import Styles from "./styles.m.css";
 
 // Components
-import Checkbox from '../../theme/assets/Checkbox';
-import Remove from '../../theme/assets/Remove';
-import Edit from '../../theme/assets/Edit';
-import Star from '../../theme/assets/Star';
+import Checkbox from "../../theme/assets/Checkbox";
+import Remove from "../../theme/assets/Remove";
+import Edit from "../../theme/assets/Edit";
+import Star from "../../theme/assets/Star";
 
 export default class Task extends PureComponent {
     render () {
