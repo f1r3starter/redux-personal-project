@@ -3,23 +3,26 @@ import { put, apply } from "redux-saga/effects";
 
 // Instruments
 import { api } from "../../../../REST/api";
-import { uiActions } from "../../../ui/actions";
 import { tasksActions } from "../../actions";
+import { uiActions } from "../../../ui/actions";
 
-export function* fetchTasks () {
+export function* updateTask ({ payload: task }) {
     try {
         yield put(uiActions.startSpinning());
 
-        const response = yield apply(api, api.tasks.fetch);
-        const { data, message } = yield apply(response, response.json);
+        const response = yield apply(api, api.tasks.update, [task]);
+        const {
+            data: [updatedTask],
+            message,
+        } = yield apply(response, response.json);
 
         if (response.status !== 200) {
             throw new Error(message);
         }
 
-        yield put(tasksActions.fillTasks(data));
+        yield put(tasksActions.updateTask(updatedTask));
     } catch (error) {
-        yield put(uiActions.emitError(error, "fillTasks worker"));
+        yield put(uiActions.emitError(error, "updateTask worker"));
     } finally {
         yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());

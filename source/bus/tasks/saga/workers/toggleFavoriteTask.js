@@ -1,27 +1,30 @@
 // Core
 import { put, apply } from "redux-saga/effects";
-import { actions } from "react-redux-form";
 
 // Instruments
 import { api } from "../../../../REST/api";
 import { tasksActions } from "../../actions";
 import { uiActions } from "../../../ui/actions";
 
-export function* createTask ({ payload: newTask }) {
+export function* toggleFavoriteTask ({ payload: task }) {
     try {
         yield put(uiActions.startSpinning());
 
-        const response = yield apply(api, api.tasks.create, [newTask]);
-        const { data, message } = yield apply(response, response.json);
+        const response = yield apply(api, api.tasks.update, [
+            { ...task, favorite: !task.favorite }
+        ]);
+        const {
+            data: [updatedTask],
+            message,
+        } = yield apply(response, response.json);
 
         if (response.status !== 200) {
             throw new Error(message);
         }
 
-        yield put(tasksActions.createTask(data));
-        yield put(actions.reset("forms.scheduler.task.newTask"));
+        yield put(tasksActions.toggleFavoriteTask(updatedTask.id));
     } catch (error) {
-        yield put(uiActions.emitError(error, "createTask worker"));
+        yield put(uiActions.emitError(error, "toggleFavoriteTask worker"));
     } finally {
         yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());

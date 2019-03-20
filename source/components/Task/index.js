@@ -1,6 +1,7 @@
 // Core
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import cx from "classnames";
+import { Control } from "react-redux-form";
 
 // Instruments
 import Styles from "./styles.m.css";
@@ -11,9 +12,69 @@ import Remove from "../../theme/assets/Remove";
 import Edit from "../../theme/assets/Edit";
 import Star from "../../theme/assets/Star";
 
-export default class Task extends PureComponent {
+export default class Task extends Component {
+    _toggleCompleteTask = () => {
+        const { toggleCompleteTaskAsync } = this.props;
+
+        toggleCompleteTaskAsync({ ...this.props });
+    };
+
+    _toggleFavoriteTask = () => {
+        const { toggleFavoriteTaskAsync } = this.props;
+
+        toggleFavoriteTaskAsync({ ...this.props });
+    };
+
+    _toggleFocusTask = () => {
+        const {
+            toggleFocusTask,
+            id,
+            clearMessage,
+            message,
+            fillNewMessage,
+            focusTask,
+        } = this.props;
+
+        focusTask ? clearMessage() : fillNewMessage(message);
+        toggleFocusTask(id);
+    };
+
+    _removeTask = () => {
+        const { removeTaskAsync, id } = this.props;
+
+        removeTaskAsync(id);
+    };
+
+    _changeHandler = (event) => {
+        const { fillNewMessage } = this.props;
+
+        fillNewMessage(event.target.value);
+    };
+
+    _keyHandler = (event) => {
+        const key = event.key;
+
+        const keyActions = {
+            Enter: () => {
+                const { updateTaskAsync, newMessageText } = this.props;
+
+                event.preventDefault();
+                if (newMessageText) {
+                    updateTaskAsync({ ...this.props, message: newMessageText });
+                    this._toggleFocusTask();
+                }
+            },
+            Esc: () => {
+                event.preventDefault();
+                this._toggleFocusTask();
+            },
+        };
+
+        keyActions[key] ? keyActions[key]() : null;
+    };
+
     render () {
-        const { message, completed } = this.props;
+        const { message, completed, favorite, focusTask } = this.props;
 
         const styles = cx(Styles.task, {
             [Styles.completed]: completed,
@@ -24,19 +85,31 @@ export default class Task extends PureComponent {
                 <div className = { Styles.content }>
                     <Checkbox
                         inlineBlock
+                        checked = { completed }
                         className = { Styles.toggleTaskCompletedState }
                         color1 = '#3B8EF3'
                         color2 = '#FFF'
+                        onClick = { this._toggleCompleteTask }
                     />
-                    <input disabled type = 'text' value = { message } />
+                    <input
+                        autoFocus = { focusTask }
+                        defaultValue = { message }
+                        disabled = { !focusTask }
+                        key = { focusTask }
+                        maxLength = { 50 }
+                        type = 'text'
+                        onChange = { this._changeHandler }
+                        onKeyPress = { this._keyHandler }
+                    />
                 </div>
                 <div className = { Styles.actions }>
                     <Star
-                        checked
                         inlineBlock
+                        checked = { favorite }
                         className = { Styles.toggleTaskFavoriteState }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._toggleFavoriteTask }
                     />
                     <Edit
                         inlineBlock
@@ -44,12 +117,14 @@ export default class Task extends PureComponent {
                         className = { Styles.updateTaskMessageOnClick }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._toggleFocusTask }
                     />
                     <Remove
                         inlineBlock
                         className = { Styles.removeTask }
                         color1 = '#3B8EF3'
                         color2 = '#000'
+                        onClick = { this._removeTask }
                     />
                 </div>
             </li>

@@ -15,34 +15,45 @@ export const tasksActions = {
             payload: task,
         };
     },
+    updateTask: (task) => {
+        return {
+            type:    types.UPDATE_TASK,
+            payload: task,
+        };
+    },
     removeTask: (taskId) => {
         return {
             type:    types.REMOVE_TASK,
             payload: taskId,
         };
     },
-    completeTask: (taskId) => {
+    toggleCompleteTask: (taskId) => {
         return {
-            type:    types.COMPLETE_TASK,
+            type:    types.TOGGLE_COMPLETE_TASK,
             payload: taskId,
         };
     },
-    uncompleteTask: (taskId) => {
+    toggleFavoriteTask: (taskId) => {
         return {
-            type:    types.UNCOMPLETE_TASK,
+            type:    types.TOGGLE_FAVORITE_TASK,
             payload: taskId,
         };
     },
-    favoriteTask: (taskId) => {
+    toggleFocusTask: (taskId) => {
         return {
-            type:    types.FAVORITE_TASK,
+            type:    types.TOGGLE_FOCUS_TASK,
             payload: taskId,
         };
     },
-    unfavoriteTask: (taskId) => {
+    sortTasks: () => {
         return {
-            type:    types.UNFAVORITE_TASK,
-            payload: taskId,
+            type: types.SORT_TASKS,
+        };
+    },
+    searchTasks: (query) => {
+        return {
+            type:    types.SEARCH_TASKS,
+            payload: query,
         };
     },
 
@@ -58,33 +69,27 @@ export const tasksActions = {
             payload: task,
         };
     },
+    updateTaskAsync: (task) => {
+        return {
+            type:    types.UPDATE_TASK_ASYNC,
+            payload: task,
+        };
+    },
     removeTaskAsync: (taskId) => {
         return {
             type:    types.REMOVE_TASK_ASYNC,
             payload: taskId,
         };
     },
-    completeTaskAsync: (taskId) => {
+    toggleCompleteTaskAsync: (taskId) => {
         return {
-            type:    types.COMPLETE_TASK_ASYNC,
+            type:    types.TOGGLE_COMPLETE_TASK_ASYNC,
             payload: taskId,
         };
     },
-    uncompleteTaskAsync: (taskId) => {
+    toggleFavoriteTaskAsync: (taskId) => {
         return {
-            type:    types.UNCOMPLETE_TASK_ASYNC,
-            payload: taskId,
-        };
-    },
-    favoriteTaskAsync: (taskId) => {
-        return {
-            type:    types.FAVORITE_TASK_ASYNC,
-            payload: taskId,
-        };
-    },
-    unfavoriteTaskAsync: (taskId) => {
-        return {
-            type:    types.UNFAVORITE_TASK_ASYNC,
+            type:    types.TOGGLE_FAVORITE_TASK_ASYNC,
             payload: taskId,
         };
     },
