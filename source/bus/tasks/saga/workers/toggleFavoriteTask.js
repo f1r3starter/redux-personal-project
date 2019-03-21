@@ -23,10 +23,10 @@ export function* toggleFavoriteTask ({ payload: task }) {
         }
 
         yield put(tasksActions.toggleFavoriteTask(updatedTask.id));
+        yield put(tasksActions.sortTasks());
     } catch (error) {
         yield put(uiActions.emitError(error, "toggleFavoriteTask worker"));
     } finally {
-        yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());
     }
 }

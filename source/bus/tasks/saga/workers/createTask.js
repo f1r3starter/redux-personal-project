@@ -20,10 +20,10 @@ export function* createTask ({ payload: newTask }) {
 
         yield put(tasksActions.createTask(data));
         yield put(actions.reset("forms.scheduler.task.newTask"));
+        yield put(tasksActions.sortTasks());
     } catch (error) {
         yield put(uiActions.emitError(error, "createTask worker"));
     } finally {
-        yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());
     }
 }

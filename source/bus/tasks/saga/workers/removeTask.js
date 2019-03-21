@@ -19,10 +19,10 @@ export function* removeTask ({ payload: id }) {
         }
 
         yield put(tasksActions.removeTask(id));
+        yield put(tasksActions.sortTasks());
     } catch (error) {
         yield put(uiActions.emitError(error, "removeTask worker"));
     } finally {
-        yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());
     }
 }

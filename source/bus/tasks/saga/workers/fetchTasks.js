@@ -18,10 +18,10 @@ export function* fetchTasks () {
         }
 
         yield put(tasksActions.fillTasks(data));
+        yield put(tasksActions.sortTasks());
     } catch (error) {
         yield put(uiActions.emitError(error, "fillTasks worker"));
     } finally {
-        yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());
     }
 }

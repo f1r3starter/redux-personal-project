@@ -23,10 +23,10 @@ export function* toggleCompleteTask ({ payload: task }) {
         }
 
         yield put(tasksActions.toggleCompleteTask(updatedTask.id));
+        yield put(tasksActions.sortTasks());
     } catch (error) {
         yield put(uiActions.emitError(error, "toggleCompleteTask worker"));
     } finally {
-        yield put(tasksActions.sortTasks());
         yield put(uiActions.stopSpinning());
     }
 }
