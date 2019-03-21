@@ -13,7 +13,10 @@ describe("updateTask saga:", () => {
         await expectSaga(updateTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [__.task]), __.fetchResponseSuccessUpdate]
+                [
+                    apply(api, api.tasks.update, [__.task]),
+                    __.fetchResponseSuccessUpdate
+                ]
             ])
             .put(tasksActions.updateTask(__.task))
             .put(tasksActions.sortTasks())
@@ -25,7 +28,10 @@ describe("updateTask saga:", () => {
         await expectSaga(updateTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [__.task]), __.fetchResponseFail401]
+                [
+                    apply(api, api.tasks.update, [__.task]),
+                    __.fetchResponseFail401
+                ]
             ])
             .put(uiActions.emitError(__.error, "updateTask worker"))
             .put(uiActions.stopSpinning())

@@ -24,9 +24,7 @@ describe("fetchTasks saga:", () => {
     test("should complete a 401 status response scenario", async () => {
         await expectSaga(fetchTasks)
             .put(uiActions.startSpinning())
-            .provide([
-                [apply(api, api.tasks.fetch), __.fetchResponseFail401]
-            ])
+            .provide([[apply(api, api.tasks.fetch), __.fetchResponseFail401]])
             .put(uiActions.emitError(__.error, "fillTasks worker"))
             .put(uiActions.stopSpinning())
             .run();

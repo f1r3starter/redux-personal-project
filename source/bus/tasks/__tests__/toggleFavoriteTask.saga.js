@@ -13,7 +13,12 @@ describe("toggleFavoriteTask saga:", () => {
         await expectSaga(toggleFavoriteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [{ ...__.task, favorite: !__.task.favorite }]), __.fetchResponseSuccessUpdate]
+                [
+                    apply(api, api.tasks.update, [
+                        { ...__.task, favorite: !__.task.favorite }
+                    ]),
+                    __.fetchResponseSuccessUpdate
+                ]
             ])
             .put(tasksActions.toggleFavoriteTask(__.taskId))
             .put(tasksActions.sortTasks())
@@ -25,7 +30,12 @@ describe("toggleFavoriteTask saga:", () => {
         await expectSaga(toggleFavoriteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [{ ...__.task, favorite: !__.task.favorite }]), __.fetchResponseFail401]
+                [
+                    apply(api, api.tasks.update, [
+                        { ...__.task, favorite: !__.task.favorite }
+                    ]),
+                    __.fetchResponseFail401
+                ]
             ])
             .put(uiActions.emitError(__.error, "toggleFavoriteTask worker"))
             .put(uiActions.stopSpinning())

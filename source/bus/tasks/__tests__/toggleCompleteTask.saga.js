@@ -13,7 +13,12 @@ describe("toggleCompleteTask saga:", () => {
         await expectSaga(toggleCompleteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [{ ...__.task, completed: !__.task.completed }]), __.fetchResponseSuccessUpdate]
+                [
+                    apply(api, api.tasks.update, [
+                        { ...__.task, completed: !__.task.completed }
+                    ]),
+                    __.fetchResponseSuccessUpdate
+                ]
             ])
             .put(tasksActions.toggleCompleteTask(__.taskId))
             .put(tasksActions.sortTasks())
@@ -25,7 +30,12 @@ describe("toggleCompleteTask saga:", () => {
         await expectSaga(toggleCompleteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.update, [{ ...__.task, completed: !__.task.completed }]), __.fetchResponseFail401]
+                [
+                    apply(api, api.tasks.update, [
+                        { ...__.task, completed: !__.task.completed }
+                    ]),
+                    __.fetchResponseFail401
+                ]
             ])
             .put(uiActions.emitError(__.error, "toggleCompleteTask worker"))
             .put(uiActions.stopSpinning())

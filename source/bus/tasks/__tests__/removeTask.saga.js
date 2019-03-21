@@ -13,7 +13,10 @@ describe("removeTask saga:", () => {
         await expectSaga(removeTask, { payload: __.taskId })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.remove, [__.taskId]), __.fetchResponseSuccess204]
+                [
+                    apply(api, api.tasks.remove, [__.taskId]),
+                    __.fetchResponseSuccess204
+                ]
             ])
             .put(tasksActions.removeTask(__.taskId))
             .put(tasksActions.sortTasks())
@@ -25,7 +28,10 @@ describe("removeTask saga:", () => {
         await expectSaga(removeTask, { payload: __.taskId })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.remove, [__.taskId]), __.fetchResponseFail401]
+                [
+                    apply(api, api.tasks.remove, [__.taskId]),
+                    __.fetchResponseFail401
+                ]
             ])
             .put(uiActions.emitError(__.error, "removeTask worker"))
             .put(uiActions.stopSpinning())

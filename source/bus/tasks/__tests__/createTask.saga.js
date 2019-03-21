@@ -14,7 +14,10 @@ describe("createTask saga:", () => {
         await expectSaga(createTask, { payload: __.newTask })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.create, [__.newTask]), __.fetchResponseSuccess]
+                [
+                    apply(api, api.tasks.create, [__.newTask]),
+                    __.fetchResponseSuccess
+                ]
             ])
             .put(tasksActions.createTask(__.task))
             .put(actions.reset("forms.scheduler.task.newTask"))
@@ -27,7 +30,10 @@ describe("createTask saga:", () => {
         await expectSaga(createTask, { payload: __.newTask })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.create, [__.newTask]), __.fetchResponseFail401]
+                [
+                    apply(api, api.tasks.create, [__.newTask]),
+                    __.fetchResponseFail401
+                ]
             ])
             .put(uiActions.emitError(__.error, "createTask worker"))
             .put(uiActions.stopSpinning())
