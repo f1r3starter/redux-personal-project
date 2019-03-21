@@ -61,9 +61,9 @@ describe("tasks actions:", () => {
     });
 
     test("searchTasks", () => {
-        expect(tasksActions.searchTasks(__.taskId)).toEqual({
+        expect(tasksActions.searchTasks(__.message)).toEqual({
             type:    types.SEARCH_TASKS,
-            payload: __.taskId,
+            payload: __.message,
         });
     });
 

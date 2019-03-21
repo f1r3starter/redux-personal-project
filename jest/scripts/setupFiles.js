@@ -42,8 +42,8 @@ const tasks = [
     {
         completed: false,
         created:   "2019-03-21T22:02:32.687Z",
-        favorite:  false,
-        id:        "TEST_ID1",
+        favorite:  true,
+        id:        taskId,
         message,
     },
     {
@@ -54,10 +54,24 @@ const tasks = [
         message,
     },
     {
-        completed: false,
+        completed: true,
         created:   "2019-03-22T22:02:32.687Z",
         favorite:  false,
         id:        "TEST_ID3",
+        message,
+    },
+    {
+        completed: false,
+        created:   "2019-03-20T22:02:32.687Z",
+        favorite:  false,
+        id:        "TEST_ID4",
+        message,
+    },
+    {
+        completed: false,
+        created:   "2019-03-20T22:02:32.687Z",
+        favorite:  true,
+        id:        "TEST_ID5",
         message,
     }
 ];

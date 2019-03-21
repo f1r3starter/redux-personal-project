@@ -72,6 +72,7 @@ export const tasksReducer = (state = initialState, action) => {
 
                 return b.get("favorite") > a.get("favorite") ? 1 : -1;
             });
+
         case types.SEARCH_TASKS:
             return state.filter(
                 (task) => task.get("message").search(action.payload) !== -1
