@@ -1,35 +1,33 @@
 // Core
 import { apply } from "redux-saga/effects";
-import { actions } from "react-redux-form";
 import { expectSaga } from "redux-saga-test-plan";
 
 // Instruments
 import { api } from "../../../REST/api";
 import { uiActions } from "../../ui/actions";
 import { tasksActions } from "../actions";
-import { createTask } from "../saga/workers";
+import { toggleCompleteTask } from "../saga/workers";
 
-describe("createTask saga:", () => {
+describe("toggleCompleteTask saga:", () => {
     test("should complete a 200 status response scenario", async () => {
-        await expectSaga(createTask, { payload: __.newTask })
+        await expectSaga(toggleCompleteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.create, [__.newTask]), __.fetchResponseSuccess]
+                [apply(api, api.tasks.update, [{ ...__.task, completed: !__.task.completed }]), __.fetchResponseSuccessUpdate]
             ])
-            .put(tasksActions.createTask(__.task))
-            .put(actions.reset("forms.scheduler.task.newTask"))
+            .put(tasksActions.toggleCompleteTask(__.taskId))
             .put(tasksActions.sortTasks())
             .put(uiActions.stopSpinning())
             .run();
     });
 
     test("should complete a 401 status response scenario", async () => {
-        await expectSaga(createTask, { payload: __.newTask })
+        await expectSaga(toggleCompleteTask, { payload: __.task })
             .put(uiActions.startSpinning())
             .provide([
-                [apply(api, api.tasks.create, [__.newTask]), __.fetchResponseFail401]
+                [apply(api, api.tasks.update, [{ ...__.task, completed: !__.task.completed }]), __.fetchResponseFail401]
             ])
-            .put(uiActions.emitError(__.error, "createTask worker"))
+            .put(uiActions.emitError(__.error, "toggleCompleteTask worker"))
             .put(uiActions.stopSpinning())
             .run();
     });

@@ -13,14 +13,13 @@ export function* toggleFavoriteTask ({ payload: task }) {
         const response = yield apply(api, api.tasks.update, [
             { ...task, favorite: !task.favorite }
         ]);
-        const {
-            data: [updatedTask],
-            message,
-        } = yield apply(response, response.json);
+        const { data, message } = yield apply(response, response.json);
 
         if (response.status !== 200) {
             throw new Error(message);
         }
+
+        const [updatedTask] = data;
 
         yield put(tasksActions.toggleFavoriteTask(updatedTask.id));
         yield put(tasksActions.sortTasks());

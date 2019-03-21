@@ -28,16 +28,52 @@ const newTask = {
     message,
 };
 
+const taskId = "TEST_ID";
+
 const task = {
     completed: false,
     created:   "2019-03-20T22:02:32.687Z",
     favorite:  false,
-    id:        "TEST_ID",
+    id:        taskId,
     message,
+};
+
+const tasks = [
+    {
+        completed: false,
+        created:   "2019-03-21T22:02:32.687Z",
+        favorite:  false,
+        id:        "TEST_ID1",
+        message,
+    },
+    {
+        completed: false,
+        created:   "2019-03-20T22:02:32.687Z",
+        favorite:  false,
+        id:        "TEST_ID2",
+        message,
+    },
+    {
+        completed: false,
+        created:   "2019-03-22T22:02:32.687Z",
+        favorite:  false,
+        id:        "TEST_ID3",
+        message,
+    }
+];
+
+const responseDataListSuccess = {
+    data:    tasks,
+    message: successMessage,
 };
 
 const responseDataSuccess = {
     data:    task,
+    message: successMessage,
+};
+
+const responseDataSuccessUpdate = {
+    data:    [task],
     message: successMessage,
 };
 
@@ -48,6 +84,16 @@ const responseDataFail = {
 const fetchResponseSuccess = {
     status: 200,
     json:   jest.fn(() => Promise.resolve(responseDataSuccess)),
+};
+
+const fetchResponseSuccessUpdate = {
+    status: 200,
+    json:   jest.fn(() => Promise.resolve(responseDataSuccessUpdate)),
+};
+
+const fetchResponseListSuccess = {
+    status: 200,
+    json:   jest.fn(() => Promise.resolve(responseDataListSuccess)),
 };
 
 const fetchResponseSuccess204 = {
@@ -71,9 +117,15 @@ global.__ = {
     meta,
     newTask,
     task,
+    taskId,
+    tasks,
     responseDataSuccess,
+    responseDataSuccessUpdate,
+    responseDataListSuccess,
     responseDataFail,
     fetchResponseSuccess,
+    fetchResponseSuccessUpdate,
+    fetchResponseListSuccess,
     fetchResponseSuccess204,
     fetchResponseFail400,
     fetchResponseFail401,
